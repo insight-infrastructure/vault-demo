@@ -48,6 +48,14 @@
     {
       "type": "shell",
       "inline": [
+        "sudo add-apt-repository universe",
+        "sudo add-apt-repository ppa:deadsnakes/ppa",
+        "sudo apt-get update",
+        "sudo apt-get upgrade -y",
+        "sudo apt install -y python3.7",
+        "sudo apt install -y python3-pip",
+        "pip3 install awscli --upgrade --user",
+        "sudo apt-get install -y jq unzip",
         "git clone --branch {{user `vault_module_version`}} https://github.com/hashicorp/terraform-aws-vault.git /tmp/terraform-aws-vault",
         "if test -n \"{{user `vault_download_url`}}\"; then",
         " /tmp/terraform-aws-vault/modules/install-vault/install-vault --download-url {{user `vault_download_url`}};",

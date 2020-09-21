@@ -21,8 +21,13 @@ variable "owner" {}
 variable "organization_name" {}
 variable "ca_common_name" {}
 variable "common_name" {}
-variable "dns_names" {}
+variable "dns_names" {
+  type = list(string)
+}
 variable "validity_period_hours" {}
+variable "ip_addresses" {
+  type = list(string)
+}
 
 module "tls_cert" {
   source = "github.com/hashicorp/terraform-aws-vault//modules/private-tls-cert?ref=v0.13.11"
@@ -34,6 +39,8 @@ module "tls_cert" {
   ca_common_name = var.ca_common_name
   common_name = var.common_name
   dns_names = var.dns_names
+  ip_addresses = var.ip_addresses
+  validity_period_hours = var.validity_period_hours
 }
 
 module "packer" {
@@ -43,7 +50,11 @@ module "packer" {
   timestamp_ui       = true
   vars = {
     id = local.id
-    tls_public_key_path = ""
+    aws_region = data.aws_region.current.name
+
+    ca_public_key_path = module.tls_cert.ca_public_key_file_path
+    tls_public_key_path = module.tls_cert.public_key_file_path
+    tls_private_key_path = module.tls_cert.private_key_file_path
   }
 }
 
