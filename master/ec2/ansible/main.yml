@@ -1,0 +1,12 @@
+- hosts: all
+  roles:
+    - common
+#    - role: geerlingguy.certbot
+#      become: yes
+#      certbot_create_if_missing: true
+#      certbot_admin_email: "webmaster@{{ fqdn }}"
+#      certbot_certs:
+#        - domains:
+#            - "{{ fqdn }}"
+#      certbot_create_standalone_stop_services: []
+

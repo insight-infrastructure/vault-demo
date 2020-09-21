@@ -1,0 +1,5 @@
+# Prepare things only necessary in Ubuntu Docker-in-Docker scenario
+- name: Prepare
+  hosts: all
+  roles:
+    - common
